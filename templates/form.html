@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amarel User Interface</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+  </head>
+<body>
+    <h2>From the uploaded file it seems these are the required libraries to install. Check/uncheck to confirm</h2>
+    <form 
+      action="{{ url_for('login')}}"
+      method="POST">
+        {% for module in matches %}
+            <label>
+                <input type="checkbox" name="modules" value="{{ module }}"
+                    {% if module in selected_modules %}checked{% endif %}>
+                {{ module }}
+            </label><br>
+        {% endfor %}
+
+        <label for="netID" class="form-label">NetID</label>
+        <input name="userNetID" type="text" class="form-control" id="netID" />
+
+        <label for="password" class="form-label">Password</label>
+        <input
+          name="userPassword"
+          type="password"
+          class="form-control"
+          id="password"
+        />
+
+        <label for="gpu" class="form-label">GPUs</label>
+        <input name="userGPU" type="number" class="form-control" id="gpu" />
+
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if selected_modules %}
+        <p>You selected: {{ selected_modules | join(', ') }}</p>
+    {% endif %}
+</body>
+</html>
