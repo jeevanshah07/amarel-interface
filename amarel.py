@@ -1,7 +1,6 @@
 import paramiko
 import time
 
-
 output_file = "paramiko.org"
 
 
@@ -55,33 +54,40 @@ class Amarel:
         client = paramiko.SSHClient()
         client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         client.connect("amarel.hpc.rutgers.edu", 22, self.net_id, self.password)
+
         time.sleep(1)
 
-        # upload the file using THIS SAME client
         sftp = client.open_sftp()
         remote_path = f"/scratch/{self.net_id}/{filename}"
+        remote_script_path = f"/scratch/{self.net_id}/main.sh"
+        remote_build_pipfile_path = f"/scratch/{self.net_id}/build_pipfile.py"
 
         with sftp.file(remote_path, "wb") as f:
             f.write(file.read())
 
-        # now run commands using the SAME client
-        return self.run_many(client, [
-            f"git clone https://github.com/jeevanshah07/amarel-interface/tree/main /home/{self.net_id}/interface", 
-            f"chmod 777 /home/{self.net_id}/interface/run-python.sh", 
-            "echo helpp"
-            # f"./home/{self.net_id}/interface/run-python.sh {remote_path}"
-        ])
+        with sftp.file(remote_script_path, "wb") as f:
+            lines = []
+            with open("main.sh", "rb") as s:
+                lines = s.readlines()
 
-    def run(self, command: str):
-        client = paramiko.SSHClient()
+            f.writelines(lines)
 
-        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        with sftp.file(remote_build_pipfile_path, "wb") as f:
+            lines = []
+            with open("build-pipfile.py", "rb") as s:
+                lines = s.readlines()
 
-        client.connect("amarel.hpc.rutgers.edu", 22, self.net_id, self.password)
+            f.writelines(lines)
 
-        (stdin, stdout, stderr) = client.exec_command(command)
+        return self.run(
+            client,
+            f"cd /scratch/{self.net_id} && chmod u+x main.sh && ./main.sh {filename}",
+        )
 
-        cmd_output = stdout.read()
-        print("log printing: ", command, cmd_output)
+    def run(self, client, command: str):
+        (_, stdout, _) = client.exec_command(command)
+
+        cmd_output = stdout.read().decode()
+        print(f"Command: {command} \n Output: {cmd_output} \n")
 
         return cmd_output

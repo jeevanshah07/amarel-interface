@@ -65,7 +65,7 @@ def generate_pipfile(modules, output_path="Pipfile"):
         f.write(textwrap.dedent(header))
         f.write(pipfile_content)
 
-    print(f"Pipfile generated with {len(modules)} packages: {output_path}")
+    print(f"Pipfile generated with {len(modules)} package(s): {modules}")
 
 
 if __name__ == "__main__":

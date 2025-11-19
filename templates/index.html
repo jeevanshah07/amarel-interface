@@ -20,6 +20,7 @@
       <div class="col-md-4">
         <form
           action="{{ url_for('read_form')}}"
+          id="form"
           method="post"
           enctype="multipart/form-data"
         >
@@ -41,8 +42,9 @@
             class="form-control"
             id="fileUpload"
           />
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button id="submitbtn" type="submit" class="btn btn-primary">Submit</button>
         </form>
+        <p id="loading" class="text-center" style="display: none">loading</p>
       </div>
       <div class="col-md-4"></div>
     </div>
@@ -52,5 +54,13 @@
       integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      document.getElementById("form").addEventListener("submit", function (e) {
+        document.getElementById("loading").style.display = "flex";
+        document.getElementById("submitbtn").classList.remove("btn-primary");
+        document.getElementById("submitbtn").classList.add("btn-secondary");
+      });
+    </script>
   </body>
 </html>

@@ -1,9 +1,6 @@
-# Importing required functions
 import amarel
-import re
 from flask import Flask, request, render_template
 
-# Flask constructor
 app = Flask(__name__)
 
 
@@ -22,5 +19,11 @@ def read_form():
     client = amarel.Amarel(net_id, password)
 
     res = client.run_file(file, file.filename)
+    lines = res.splitlines()
 
-    return res
+    return render_template(
+        "output.html",
+        filename=file.filename,
+        pipfile_contents=lines[0],
+        output=lines[1:],
+    )
