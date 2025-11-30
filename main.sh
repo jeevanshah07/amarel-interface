@@ -18,9 +18,8 @@ python3 build_pipfile.py $1
 
 python3 -m pipenv --python 3.8 > /dev/null
 
-# # Install packages from Pipfile using pipenv
+# Install packages from Pipfile using pipenv
 python3 -m pipenv install > /dev/null
 
-#
-# # Run the target Python file and only show its output
+# Run the target Python file and only show its output
 python3 -m pipenv run python3 $1

@@ -57,10 +57,6 @@ class Amarel:
             print(chunk)
             out.append(chunk)
 
-        print("--------")
-        print(out)
-        print("--------")
-
         return out[-1]
 
     def run_file(self, file, filename):
