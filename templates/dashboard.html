@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Amarel User Interface</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <h1 class="text-center py-5">Amarel User Interface</h1>
+
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4">
+        <form
+          action="{{ url_for('dashboard')}}"
+          id="form"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <label for="fileUpload" class="form-label">Code</label>
+          <input
+            name="userCode"
+            type="file"
+            class="form-control"
+            id="fileUpload"
+          />
+
+          <button id="submitbtn" type="submit" class="btn btn-primary">
+            Submit
+          </button>
+        </form>
+        <p id="loading" class="text-center" style="display: none">loading</p>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <footer>
+      <button class="btn btn-danger" onclick="window.location.href='/logout'" type="button">
+        Log Out
+      </button>
+    </footer>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      document.getElementById("form").addEventListener("submit", function (e) {
+        document.getElementById("loading").style.display = "flex";
+        document.getElementById("submitbtn").classList.remove("btn-primary");
+        document.getElementById("submitbtn").classList.add("btn-secondary");
+      });
+    </script>
+  </body>
+</html>
