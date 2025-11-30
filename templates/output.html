@@ -77,6 +77,21 @@
       .btn-home:hover {
         background-color: #0056b3;
       }
+
+      .btn-logout {
+        background-color: #ff0000;
+        color: white;
+        border: none;
+        padding: 10px 30px;
+        border-radius: 4px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+      }
+
+      .btn-logout:hover {
+        background-color: #a30000;
+      }
     </style>
   </head>
   <body>
@@ -103,8 +118,20 @@
     </div>
 
     <footer>
-      <button class="btn-home" onclick="window.location.href='/'" type="button">
-        Return Home
+      <button
+        class="btn-home"
+        onclick="window.location.href='/upload'"
+        type="button"
+      >
+        Return
+      </button>
+
+      <button
+        class="btn-logout"
+        onclick="window.location.href='/logout'"
+        type="button"
+      >
+        Log Out
       </button>
     </footer>
 
