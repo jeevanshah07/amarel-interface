@@ -5,7 +5,7 @@ output_file = "paramiko.org"
 
 
 class Amarel:
-    def __init__(self, net_id, password):
+    def __init__(self, net_id: str, password: str):
         self.net_id: str = net_id
         self.password: str = password
 
@@ -22,6 +22,19 @@ class Amarel:
     def set_password(self, password) -> str:
         self.password = password
         return self.password
+
+    def authenticate(self) -> bool:
+        if self.net_id == "" or self.password == "":
+            return False
+
+        client = paramiko.SSHClient()
+        client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        try:
+            client.connect("amarel.hpc.rutgers.edu", 22, self.net_id, self.password)
+            client.close()
+            return True
+        except Exception:
+            return False
 
     def run_many(self, client, commands):
         out = []
