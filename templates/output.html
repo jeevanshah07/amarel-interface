@@ -113,6 +113,11 @@
           <h2>Output</h2>
           <h6>(Line by line)</h6>
           <div class="result-content">{{ output }}</div>
+          <a href="{{ url_for('download', data='\n'.join(output))}}">
+            <button class="btn-home" type="submit">
+              Download output as file
+            </button>
+          </a>
         </div>
       </div>
     </div>

@@ -1,5 +1,14 @@
 import amarel
-from flask import Flask, redirect, request, render_template, session, url_for
+from datetime import datetime
+from flask import (
+    Flask,
+    make_response,
+    redirect,
+    request,
+    render_template,
+    session,
+    url_for,
+)
 
 app = Flask(__name__)
 app.secret_key = "amarel"
@@ -54,3 +63,15 @@ def dashboard():
         pipfile_contents=lines[0],
         output=lines[1:],
     )
+
+
+@app.route("/download")
+def download():
+    output = request.args.get("data", "")
+    filename = f"amarel-output-{datetime.today().strftime('%Y%m%d')}"
+
+    response = make_response(output)
+    response.headers["Content-Disposition"] = f"attachment; filename={filename}.txt"
+    response.headers["Content-Type"] = "text/plain"
+
+    return response
