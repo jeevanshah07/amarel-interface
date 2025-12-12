@@ -95,53 +95,38 @@
     </style>
   </head>
   <body>
+    {% if not succ %}
+    <script>
+      alert("Error saving job info");
+    </script>
+    {% endif %}
+
     <div class="content-wrapper">
       <div class="container" style="max-width: 800px">
         <h1 class="text-center">Amarel User Interface</h1>
-        <h2 class="text-center">Job: {{ filename }}</h2>
-
-        {% if status %}
-        <div class="result-section">
-          <h2>status</h2>
-          <div class="result-content">Job Complete</div>
-        </div>
 
         <div class="result-section">
-          <h2>Filename</h2>
-          <div class="result-content">{{ filename }}</div>
+          {% for job in jobs %}
+          <h2>Job: {{ job.name }}</h2>
+          <button
+            class="btn-home"
+            onclick="window.location.href='/status?name={{ job.name }}'"
+            type="button"
+          >
+            View Status
+          </button>
+          {% endfor %}
         </div>
-
-        <div class="result-section">
-          <h2>Pipfile Contents</h2>
-          <div class="result-content">{{ pipfile_contents }}</div>
-        </div>
-
-        <div class="result-section">
-          <h2>Output</h2>
-          <h6>(Line by line)</h6>
-          <div class="result-content">{{ output }}</div>
-          <a href="{{ url_for('download', data='\n'.join(output))}}">
-            <button class="btn-home" type="submit">
-              Download output as file
-            </button>
-          </a>
-        </div>
-        {% endif %} {% if not status %}
-        <div class="result-section">
-          <h2>status</h2>
-          <div class="result-content">Job still running - check back later</div>
-        </div>
-        {% endif %}
       </div>
     </div>
 
     <footer>
       <button
         class="btn-home"
-        onclick="window.location.href='/main'"
+        onclick="window.location.href='/upload'"
         type="button"
       >
-        Return
+        Upload new job
       </button>
 
       <button

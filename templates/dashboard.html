@@ -30,7 +30,114 @@
             type="file"
             class="form-control"
             id="fileUpload"
+            required
           />
+
+          <h2>Job options</h2>
+          <h6>
+            For more information see the
+            <a
+              href="https://sites.google.com/view/cluster-user-guide/amarel?authuser=0#h.oeejy9yf80e4"
+              target="_blank"
+              >amarel user guide</a
+            >
+          </h6>
+
+          <br />
+
+          <label for="partition" class="form-label"
+            >Partition (job queue)?</label
+          >
+          <select name="partition" id="partition">
+            <option value="main">main</option>
+            <option value="gpu">gpu</option>
+            <option value="mem">mem</option>
+            <option value="nonpre">nonpre</option>
+            <option value="graphical">graphical</option>
+          </select>
+
+          <br />
+
+          <label for="name" class="form-label">Job name?</label>
+          <input
+            name="jobName"
+            type="text"
+            id="name"
+            class="form-control"
+            required
+          />
+
+          <br />
+
+          <label for="numNodes" class="form-label"
+            >Number of nodes you require</label
+          >
+          <input
+            name="numNodes"
+            type="number"
+            id="numNodes"
+            min="1"
+            value="1"
+            class="form-control"
+            required
+          />
+
+          <br />
+
+          <label for="ram" class="form-label">RAM required (mb)</label>
+          <input
+            name="ram"
+            type="number"
+            id="ram"
+            min="1024"
+            value="1024"
+            class="form-control"
+            required
+          />
+
+          <br />
+          <label for="numTasks" class="form-label"
+            >Total number of tasks across all nodes</label
+          >
+          <input
+            name="numTasks"
+            type="number"
+            id="numTasks"
+            min="1"
+            value="1"
+            class="form-control"
+            required
+          />
+
+          <br />
+
+          <label for="numCores" class="form-label"
+            >Number of cores per task (&gt1 if multi threaded tasks)?</label
+          >
+          <input
+            name="numCores"
+            type="number"
+            id="numCores"
+            min="1"
+            value="1"
+            class="form-control"
+            required
+          />
+
+          <br />
+
+          <label for="time" class="form-label"
+            >Total Time Limit (HH:MM:SS)</label
+          >
+          <input
+            name="time"
+            type="text"
+            id="time"
+            class="form-control"
+            required
+          />
+
+          <br />
 
           <button id="submitbtn" type="submit" class="btn btn-primary">
             Submit
@@ -42,7 +149,18 @@
     </div>
 
     <footer>
-      <button class="btn btn-danger" onclick="window.location.href='/logout'" type="button">
+      <button
+        class="btn btn-primary"
+        onclick="window.location.href='/main'"
+        type="button"
+      >
+        Return
+      </button>
+      <button
+        class="btn btn-danger"
+        onclick="window.location.href='/logout'"
+        type="button"
+      >
         Log Out
       </button>
     </footer>
