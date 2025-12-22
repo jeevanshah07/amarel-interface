@@ -9,10 +9,7 @@ if ! python3 -m pip --version &>/dev/null; then
     python3 -m ensurepip --upgrade
 fi
 
-# Install pipenv silently if not installed
-if ! pip show pipenv &>/dev/null; then
-    python3 -m pip install --quiet pipenv
-fi
+python3 -m pip install --quiet pipenv
 
 python3 build_pipfile.py $1
 
