@@ -24,4 +24,4 @@ cd /scratch/$USER
 
 chmod u+x ./main.sh
 
-srun ./main.sh {{ filename }}
+srun ./main.sh {{ filename }}.py
